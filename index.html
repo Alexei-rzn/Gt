@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Data Manipulator</title>
+</head>
+<body>
+    <h1>Фильтрация и обновление данных</h1>
+    <label for="columnSelect">Выберите колонку:</label>
+    <select id="columnSelect">
+        <option value="0">Имя</option>
+        <option value="1">Email</option>
+        <option value="2">Возраст</option>
+    </select>
+
+    <label for="filterValue">Фильтр по значению:</label>
+    <input type="text" id="filterValue" />
+
+    <button onclick="filterData()">Фильтровать</button>
+
+    <h2>Результаты фильтрации:</h2>
+    <pre id="results"></pre>
+
+    <h2>Изменение значения:</h2>
+    <div>
+        <input type="text" id="newValue" placeholder="Новое значение" />
+        <input type="number" id="rowNumber" placeholder="Номер строки" />
+        <button onclick="updateData()">Обновить</button>
+    </div>
+
+    <script>
+        const scriptUrl = 'ВАШ_URL_ВЕБХУКА'; // Замените на URL вашего вебхука
+
+        function filterData() {
+            const columnIndex = document.getElementById('columnSelect').value;
+            const filterValue = document.getElementById('filterValue').value;
+
+            fetch(`${scriptUrl}?action=filterData&columnIndex=${columnIndex}&filterValue=${filterValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(err => console.error(err));
+        }
+
+        function updateData() {
+            const newValue = document.getElementById('newValue').value;
+            const row = document.getElementById('rowNumber').value;
+
+            const columnIndex = document.getElementById('columnSelect').value;
+
+            fetch(`${scriptUrl}?action=updateData&row=${row}&column=${parseInt(columnIndex) + 1}&value=${newValue}`)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    alert('Данные обновлены успешно!');
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>
