@@ -11,9 +11,9 @@ document.getElementById('processButton').addEventListener('click', function() {
 
             Tesseract.recognize(
                 img,
-                'rus',
+                'eng+rus', // Задаем языки для распознавания (русский и английский)
                 {
-                    logger: info => console.log(info) // Вывод информации о процессе распознавания
+                    logger: info => console.log(info) // Логирование процесса распознавания
                 }
             ).then(({ data: { text } }) => {
                 displayResult(text);
@@ -28,11 +28,15 @@ document.getElementById('processButton').addEventListener('click', function() {
 
 function displayResult(text) {
     const resultDiv = document.getElementById('result');
-    const rows = text.split('\n').map(row => row.split('\t'));
     
-    let html = '<table>';
+    // Разделим текст на строки для отображения в таблице
+    const rows = text.split('\n').map(row => row.split(/\s+/)); // Разделяем строку по пробелам
+    
+    let html = '<table><tr><th>Текст</th></tr>';
     rows.forEach(row => {
-        html += '<tr>' + row.map(cell => `<td>${cell}</td>`).join('') + '</tr>';
+        if (row.length > 0 && row[0] !== '') { // Игнорируем пустые строки
+            html += '<tr><td>' + row.join(' ') + '</td></tr>'; // Объединяем ячейки
+        }
     });
     html += '</table>';
     
