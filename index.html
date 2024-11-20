@@ -3,29 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCR на изображениях</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <title>Мой Веб Проект</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Подключение CSS -->
+    <script src="js/script.js" defer></script> <!-- Подключение JS -->
 </head>
 <body>
-    <h1>Загрузить изображение для OCR</h1>
-    <input type="file" id="imageInput" accept="image/*">
-    <button id="processButton">Обработать изображение</button>
-    <div id="result"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/2.1.1/tesseract.min.js"></script>
-    <script src="script.js"></script>
+    <header>
+        <h1>Платформа для оценки потребностей</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">О проекте</a></li>
+                <li><a href="#articles">Статьи</a></li>
+                <li><a href="#test">Тест</a></li>
+                <li><a href="#forum">Форум</a></li>
+                <li><a href="#resources">Ресурсы</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>О проекте</h2>
+            <p>Здесь будет информация о вашем проекте.</p>
+        </section>
+
+        <section id="articles">
+            <h2>Образовательные статьи</h2>
+            <p>Список статей будет здесь.</p>
+        </section>
+
+        <section id="test">
+            <h2>Интерактивный тест</h2>
+            <p>Здесь будет интерактивный тест для пользователей.</p>
+        </section>
+
+        <section id="forum">
+            <h2>Форум</h2>
+            <p>Здесь будет форум для обсуждений.</p>
+        </section>
+
+        <section id="resources">
+            <h2>Ресурсы</h2>
+            <p>Ссылки на полезные материалы и рекомендации.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Мой Веб Проект. Все права защищены.</p>
+    </footer>
 </body>
 </html>
