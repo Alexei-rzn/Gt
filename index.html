@@ -28,26 +28,20 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        li {
-            background-color: #e7f3ff;
+        th, td {
             border: 1px solid #b5d0e5;
-            margin: 10px 0;
             padding: 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            text-align: left;
         }
-        li:hover {
+        th {
+            background-color: #e7f3ff;
+        }
+        tr:hover {
             background-color: #d0e4ff;
-        }
-        .teacher {
-            font-weight: bold;
-        }
-        .subject {
-            color: #555;
         }
     </style>
 </head>
@@ -56,47 +50,82 @@
         <h1>Учителя и их предметы</h1>
     </header>
     <div class="container">
-        <ul>
-            <li>
-                <span class="teacher">Дорохина Ксения Дмитриевна</span> - <span class="subject">Основы духовно нравственной культуры народов России</span>
-            </li>
-            <li>
-                <span class="teacher">Миронова Светлана Анатольевна</span> - <span class="subject">Физическая культура</span>
-            </li>
-            <li>
-                <span class="teacher">Еськина Ольга Николаевна</span> - <span class="subject">Русский язык, Литература, Разговоры о важном, Внеурочная деятельность</span>
-            </li>
-            <li>
-                <span class="teacher">Веселова Светлана Александровна</span> - <span class="subject">Иностранный язык</span>
-            </li>
-            <li>
-                <span class="teacher">Соловьева Жанна Петровна</span> - <span class="subject">Математика</span>
-            </li>
-            <li>
-                <span class="teacher">Подгорная Елена Павловна</span> - <span class="subject">Труд (технология)</span>
-            </li>
-            <li>
-                <span class="teacher">Федулова Светлана Семеновна</span> - <span class="subject">История, Обществознание</span>
-            </li>
-            <li>
-                <span class="teacher">Лайкевич Ирина Викторовна</span> - <span class="subject">Музыка</span>
-            </li>
-            <li>
-                <span class="teacher">Чикункова Юлия Геннадьевна</span> - <span class="subject">РДДМ</span>
-            </li>
-            <li>
-                <span class="teacher">Минеева Анастасия Геннадьевна</span> - <span class="subject">География</span>
-            </li>
-            <li>
-                <span class="teacher">Хамова Евгения Юрьевна</span> - <span class="subject">Историческое краеведение</span>
-            </li>
-            <li>
-                <span class="teacher">Фомичева Татьяна Рудольфовна</span> - <span class="subject">Биология</span>
-            </li>
-            <li>
-                <span class="teacher">Емельянова Нина Ивановна</span> - <span class="subject">Изобразительное искусство</span>
-            </li>
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Предмет</th>
+                    <th>Фамилия, имя, отчество</th>
+                    <th>Кабинет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Основы духовно-нравственной культуры народов России</td>
+                    <td>Дорохина Ксения Дмитриевна</td>
+                    <td>101</td>
+                </tr>
+                <tr>
+                    <td>Физическая культура</td>
+                    <td>Миронова Светлана Анатольевна</td>
+                    <td>302</td>
+                </tr>
+                <tr>
+                    <td>Русский язык</td>
+                    <td>Еськина Ольга Николаевна</td>
+                    <td>201</td>
+                </tr>
+                <tr>
+                    <td>Иностранный язык</td>
+                    <td>Веселова Светлана Александровна</td>
+                    <td>105</td>
+                </tr>
+                <tr>
+                    <td>Математика</td>
+                    <td>Соловьева Жанна Петровна</td>
+                    <td>203</td>
+                </tr>
+                <tr>
+                    <td>Труд (технология)</td>
+                    <td>Подгорная Елена Павловна</td>
+                    <td>204</td>
+                </tr>
+                <tr>
+                    <td>История</td>
+                    <td>Федулова Светлана Семеновна</td>
+                    <td>305</td>
+                </tr>
+                <tr>
+                    <td>Музыка</td>
+                    <td>Лайкевич Ирина Викторовна</td>
+                    <td>106</td>
+                </tr>
+                <tr>
+                    <td>РДДМ</td>
+                    <td>Миронова Светлана Анатольевна</td>
+                    <td>302</td>
+                </tr>
+                <tr>
+                    <td>География</td>
+                    <td>Минеева Анастасия Геннадьевна</td>
+                    <td>404</td>
+                </tr>
+                <tr>
+                    <td>Историческое краеведение</td>
+                    <td>Хамова Евгения Юрьевна</td>
+                    <td>307</td>
+                </tr>
+                <tr>
+                    <td>Биология</td>
+                    <td>Фомичева Татьяна Рудольфовна</td>
+                    <td>204</td>
+                </tr>
+                <tr>
+                    <td>Изобразительное искусство</td>
+                    <td>Емельянова Нина Ивановна</td>
+                    <td>108</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
