@@ -183,7 +183,6 @@
     let data = [];
     let headers = [];
 
-    // Функция загрузки данных с Google Sheets
     async function loadGoogleSheetData() {
         document.getElementById('loading').style.display = 'block';
         try {
@@ -199,7 +198,6 @@
         }
     }
 
-    // Функция парсинга CSV данных
     function parseCSVData(csvData) {
         const rows = csvData.split('\n').map(row => row.split(','));
         headers = rows[0].map(header => header.trim());
@@ -213,7 +211,6 @@
         populateDropdowns();
     }
 
-    // Функция наполнения выпадающего списка
     function populateDropdowns() {
         const outputColumnsSelect = document.getElementById('output-columns');
         headers.forEach(header => {
@@ -224,7 +221,6 @@
         });
     }
 
-    // Функция для наполнения списка автозаполнения
     function populateAutocompleteList() {
         const list = document.getElementById('autocomplete-list');
         list.innerHTML = ''; // Очистка предыдущих значений
@@ -256,7 +252,6 @@
         }
     }
 
-    // Функция поиска по штрих-коду
     function searchByBarcode(barcode) {
         const outputColumns = Array.from(document.getElementById('output-columns').selectedOptions)
             .map(option => option.value);
@@ -309,7 +304,10 @@
                 },
             },
             decoder: {
-                readers: ["ean_reader", "code_128_reader", "code_39_reader"], // Добавлен ean_reader
+                readers: [
+                    "ean_reader",    // EAN-13 и EAN-14
+                    "ean_8_reader"   // EAN-8
+                ],
                 multiple: false // Не сканировать несколько штрих-кодов одновременно
             },
             locate: true,
