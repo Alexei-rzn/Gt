@@ -253,33 +253,32 @@
     }
 
     function searchByBarcode(barcode) {
-        const outputColumns = Array.from(document.getElementById('output-columns').selectedOptions)
-            .map(option => option.value);
+        const outputColumns = Array.from(document.getElementById('output-columns').selectedOptions).map(option => option.value);
         const resultsContainer = document.getElementById('search-results');
         resultsContainer.innerHTML = `<p>Сканируемый/вводимый штрих-код: ${barcode}</p>`;
 
         const filteredData = data.filter(item => 
-            item['ШК 1'] === barcode || 
-            item['ШК 2'] === barcode || 
-            item['ШК 3'] === barcode
+            item['ШК 1']?.trim() === barcode || 
+            item['ШК 2']?.trim() === barcode || 
+            item['ШК 3']?.trim() === barcode
         );
 
         if (filteredData.length > 0) {
-            let tableHTML = `<table border="1"><tr>`;
+            let tableHTML = '<table border="1"><tr>';
             outputColumns.forEach(column => {
                 tableHTML += `<th>${column}</th>`;
             });
-            tableHTML += `</tr>`;
+            tableHTML += '</tr>';
 
             filteredData.forEach(item => {
-                tableHTML += `<tr>`;
+                tableHTML += '<tr>';
                 outputColumns.forEach(column => {
                     tableHTML += `<td>${item[column]}</td>`;
                 });
-                tableHTML += `</tr>`;
+                tableHTML += '</tr>';
             });
 
-            tableHTML += `</table>`;
+            tableHTML += '</table>';
             resultsContainer.innerHTML += tableHTML;
         } else {
             resultsContainer.innerHTML += '<p>Ничего не найдено</p>';
@@ -291,6 +290,7 @@
     function startScanner() {
         if (isScanning) return;
         isScanning = true;
+
         document.getElementById('bounding-box').style.display = 'none'; // Скрыть рамку перед началом сканирования
 
         Quagga.init({
@@ -323,7 +323,7 @@
         });
 
         Quagga.onDetected(function (data) {
-            const code = data.codeResult.code;
+            const code = data.codeResult.code.trim(); // Убедитесь, что нет лишних пробелов
             console.log("Код штрих-кода: ", code);
             const { x, y, width, height } = data.box; // Получаем координаты рамки
             const boundingBox = document.getElementById('bounding-box');
@@ -345,7 +345,7 @@
 
     document.getElementById('reset-button').addEventListener('click', function () {
         document.getElementById('search-results').innerHTML = '';
-        Quagga.stop();
+        if (isScanning) Quagga.stop();
         isScanning = false; // Сброс состояния сканирования
         document.getElementById('bounding-box').style.display = 'none'; // Скрыть рамку
         document.getElementById('manual-entry').value = ''; // Очистить поле ввода
