@@ -3,71 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сканирование штрих-кода</title>
+    <title>Автозаполнение по штрих-коду</title>
     <script src="https://unpkg.com/quagga/dist/quagga.min.js"></script>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Изменено на flex-start для выравнивания по верхней части */
             height: 100vh; /* Высота на весь экран */
             margin: 0; /* Убираем отступы */
-            background-color: #f7f7f7; /* Фон страницы */
+            background-color: #f0f4f7; /* Немного светлее фон */
+            padding-top: 20px; /* Добавлено верхнее заполнение */
+        }
+
+        h1 {
+            color: #333; /* Цвет заголовка */
+            margin-bottom: 20px; /* Отступ снизу */
+            font-size: 24px; /* Размер заголовка */
+        }
+
+        label {
+            font-weight: bold; /* Жирное начертание для метки */
+            margin-bottom: 5px; /* Отступ снизу */
         }
 
         #output-columns {
             width: 100%;
-            max-width: 640px;
-            padding: 5px;
-            margin: 10px 0;
+            max-width: 640px; /* Максимальная ширина */
+            padding: 5px; /* Внутренние отступы */
+            margin: 10px 0; /* Отступы сверху и снизу */
+            border: 1px solid #ccc; /* Обводка */
+            border-radius: 5px; /* Закругление углов */
         }
 
         input[type="text"] {
             width: 100%;
-            max-width: 640px;
-            padding: 10px;
-            margin-top: 10px;
+            max-width: 640px; /* Максимальная ширина */
+            padding: 10px; /* Внутренние отступы */
+            margin-top: 10px; /* Отступ сверху */
+            border: 1px solid #ccc; /* Обводка */
+            border-radius: 5px; /* Закругление углов */
+            font-size: 16px; /* Размер шрифта */
         }
 
         .autocomplete-items {
             position: absolute;
-            border: 1px solid #d4d4d4;
-            background-color: #fff;
-            max-height: 150px;
-            overflow-y: auto;
-            width: calc(100% - 2px);
-            z-index: 1000;
+            border: 1px solid #d4d4d4; /* Обводка для списка подсказок */
+            background-color: #fff; /* Фон */
+            max-height: 150px; /* Максимальная высота */
+            overflow-y: auto; /* Прокрутка при необходимости */
+            width: calc(100% - 2px); /* Ширина */
+            z-index: 1000; /* Слой */
+            border-radius: 5px; /* Закругление углов */
         }
 
         .autocomplete-item {
-            padding: 10px;
-            cursor: pointer;
-            background-color: #fff;
-            border-bottom: 1px solid #d4d4d4;
+            padding: 10px; /* Внутренние отступы */
+            cursor: pointer; /* Указатель при наведении */
+            background-color: #fff; /* Фон */
+            border-bottom: 1px solid #d4d4d4; /* Обводка снизу */
         }
 
         .autocomplete-item:hover {
-            background-color: #e9e9e9;
+            background-color: #e9e9e9; /* Цвет при наведении */
         }
 
         #loading {
-            display: none;
-            margin-top: 20px;
+            display: none; /* Скрыть загрузку по умолчанию */
+            margin-top: 20px; /* Отступ сверху */
         }
 
         #result {
             width: 100%;
-            max-width: 640px;
-            text-align: center;
-            margin-top: 20px;
+            max-width: 640px; /* Максимальная ширина */
+            text-align: center; /* Выравнивание текста по центру */
+            margin-top: 20px; /* Отступ сверху */
+        }
+
+        table {
+            width: 100%; /* Ширина таблицы */
+            border-collapse: collapse; /* Объединение границ */
+            margin-top: 20px; /* Отступ сверху */
+        }
+
+        th, td {
+            border: 1px solid #ddd; /* Обводка */
+            padding: 8px; /* Внутренние отступы */
+            text-align: left; /* Выравнивание текста в ячейках */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Фон заголовков */
+            font-weight: bold; /* Жирный шрифт для заголовков */
         }
     </style>
 </head>
 <body>
 
-<h1>Сканирование штрих-кода</h1>
+<h1>Автозаполнение по штрих-коду</h1> <!-- Изменено название -->
 
 <label for="output-columns">Выберите столбцы для вывода:</label>
 <select id="output-columns" multiple></select>
@@ -170,7 +209,7 @@
         );
 
         if (filteredData.length > 0) {
-            let tableHTML = `<table border="1"><tr>`;
+            let tableHTML = `<table><tr>`;
             outputColumns.forEach(column => {
                 tableHTML += `<th>${column}</th>`;
             });
