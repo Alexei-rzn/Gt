@@ -17,23 +17,18 @@
             background-color: #f7f7f7; /* Фон страницы */
         }
 
-        #scanner-container {
+        #output-columns {
             width: 100%;
             max-width: 640px;
-            position: relative;
-            overflow: hidden; /* Убираем прокрутку */
-            margin-bottom: 20px; /* Отступ снизу */
-            border: 2px solid #ccc; /* Добавляем границу */
-            border-radius: 10px; /* Закругляем углы */
-            background-color: black; /* Фон для сканирования */
+            padding: 5px;
+            margin: 10px 0;
         }
 
-        #manual-entry {
+        input[type="text"] {
             width: 100%;
             max-width: 640px;
             padding: 10px;
             margin-top: 10px;
-            position: relative;
         }
 
         .autocomplete-items {
@@ -57,24 +52,25 @@
             background-color: #e9e9e9;
         }
 
-        /* Остальные стили остаются без изменений */
+        #loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #result {
+            width: 100%;
+            max-width: 640px;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
 <h1>Сканирование штрих-кода</h1>
 
-<div id="scanner-container">
-    <p>Сканируйте штрих-код с помощью сканера (или введите вручную ниже):</p>
-</div>
-
 <label for="output-columns">Выберите столбцы для вывода:</label>
 <select id="output-columns" multiple></select>
-
-<div class="button-container">
-    <button id="manual-entry-button">Ввести вручную</button>
-    <button id="reset-button">Сброс</button>
-</div>
 
 <input type="text" id="manual-entry" placeholder="Введите штрих-код для автозаполнения" />
 <div id="autocomplete-list" class="autocomplete-items"></div>
@@ -85,10 +81,6 @@
     <p>Результат:</p>
     <div id="search-results"></div>
 </div>
-
-<a href="https://relef.ru/" target="_blank"> 
-    <img id="banner" src="https://raw.githubusercontent.com/Alexei-rzn/ScanShk/refs/heads/main/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.png" alt="Ваш баннер">
-</a>
 
 <script>
     const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT3oeQ768KbbMYrfrrijNYswWat4GdsDzAa7iRZZ2vLqjvg6zbTQ5Efe1LFn9wRfULaghfYoRGruy1w/pub?output=csv';
@@ -197,24 +189,16 @@
         } else {
             resultsContainer.innerHTML += '<p>Ничего не найдено</p>';
         }
-    }
 
-    document.getElementById('reset-button').addEventListener('click', function () {
-        document.getElementById('search-results').innerHTML = '';
-        document.getElementById('manual-entry').value = ''; // Очистить поле ввода
-        document.getElementById('autocomplete-list').innerHTML = ''; // Очистить список
-    });
-
-    document.getElementById('manual-entry-button').addEventListener('click', function () {
-        const manualEntryField = document.getElementById('manual-entry');
-        manualEntryField.style.display = 'block'; // Показываем поле ввода
-        manualEntryField.focus(); // Устанавливаем фокус на поле ввода
+        // Очистка поля для нового ввода
+        document.getElementById('manual-entry').value = '';
         document.getElementById('autocomplete-list').innerHTML = ''; // Скрываем список
-    });
+        document.getElementById('manual-entry').focus(); // Устанавливаем фокус обратно на поле ввода
+    }
 
     document.getElementById('manual-entry').addEventListener('input', function () {
         populateAutocompleteList(); // Обновляем список при вводе
-        if (this.value.length >= 8) { // Предположительно, минимальная длина штрих-кода
+        if (this.value.length >= 8) { // Предположительно, минимальная длина штрих-кода для выполнения поиска
             searchByBarcode(this.value);
         }
     });
