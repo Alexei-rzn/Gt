@@ -239,7 +239,7 @@
         populateAutocompleteList(); // Обновляем список при вводе
 
         // Задать минимальную длину штрих-кода, чтобы выполнять поиск
-        if (this.value.length >= 8) {
+        if (this.value.length >= 13) {
             searchByBarcode(this.value.trim()); // Используем trim для удаления лишних пробелов
         }
     });
