@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поиск по штрих-коду</title>
+    <title>Автозаполнение по штрих-коду</title>
     <script src="https://unpkg.com/quagga/dist/quagga.min.js"></script>
     <style>
         * {
@@ -15,103 +15,103 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Изменено на flex-start для выравнивания по верхней части */
-            height: 100vh; /* Высота на весь экран */
-            margin: 0; /* Убираем отступы */
-            background-color: #f0f4f7; /* Немного светлее фон */
-            padding-top: 20px; /* Добавлено верхнее заполнение */
+            justify-content: flex-start; 
+            height: 100vh; 
+            margin: 0; 
+            background-color: #f0f4f7; 
+            padding-top: 20px; 
         }
 
         h1 {
-            color: #333; /* Цвет заголовка */
-            margin-bottom: 20px; /* Отступ снизу */
-            font-size: 24px; /* Размер заголовка */
+            color: #333; 
+            margin-bottom: 20px; 
+            font-size: 24px; 
         }
 
         label {
-            font-weight: bold; /* Жирное начертание для метки */
-            margin-bottom: 5px; /* Отступ снизу */
+            font-weight: bold; 
+            margin-bottom: 5px; 
         }
 
         #output-columns {
             width: 100%;
-            max-width: 640px; /* Максимальная ширина */
-            padding: 5px; /* Внутренние отступы */
-            margin: 10px 0; /* Отступы сверху и снизу */
-            border: 1px solid #ccc; /* Обводка */
-            border-radius: 5px; /* Закругление углов */
+            max-width: 640px; 
+            padding: 5px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
         }
 
         input[type="text"] {
             width: 100%;
-            max-width: 640px; /* Максимальная ширина */
-            padding: 10px; /* Внутренние отступы */
-            margin-top: 10px; /* Отступ сверху */
-            border: 1px solid #ccc; /* Обводка */
-            border-radius: 5px; /* Закругление углов */
-            font-size: 16px; /* Размер шрифта */
+            max-width: 640px; 
+            padding: 10px; 
+            margin-top: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 16px; 
         }
 
         .autocomplete-items {
             position: absolute;
-            border: 1px solid #d4d4d4; /* Обводка для списка подсказок */
-            background-color: #fff; /* Фон */
-            max-height: 150px; /* Максимальная высота */
-            overflow-y: auto; /* Прокрутка при необходимости */
-            width: calc(100% - 2px); /* Ширина */
-            z-index: 1000; /* Слой */
-            border-radius: 5px; /* Закругление углов */
+            border: 1px solid #d4d4d4; 
+            background-color: #fff; 
+            max-height: 150px; 
+            overflow-y: auto; 
+            width: calc(100% - 2px); 
+            z-index: 1000; 
+            border-radius: 5px; 
         }
 
         .autocomplete-item {
-            padding: 10px; /* Внутренние отступы */
-            cursor: pointer; /* Указатель при наведении */
-            background-color: #fff; /* Фон */
-            border-bottom: 1px solid #d4d4d4; /* Обводка снизу */
+            padding: 10px; 
+            cursor: pointer; 
+            background-color: #fff; 
+            border-bottom: 1px solid #d4d4d4; 
         }
 
         .autocomplete-item:hover {
-            background-color: #e9e9e9; /* Цвет при наведении */
+            background-color: #e9e9e9; 
         }
 
         #loading {
-            display: none; /* Скрыть загрузку по умолчанию */
-            margin-top: 20px; /* Отступ сверху */
+            display: none; 
+            margin-top: 20px; 
         }
 
         #result {
             width: 100%;
-            max-width: 640px; /* Максимальная ширина */
-            text-align: center; /* Выравнивание текста по центру */
-            margin-top: 20px; /* Отступ сверху */
+            max-width: 640px; 
+            text-align: center; 
+            margin-top: 20px; 
         }
 
         table {
-            width: 100%; /* Ширина таблицы */
-            border-collapse: collapse; /* Объединение границ */
-            margin-top: 20px; /* Отступ сверху */
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
         }
 
         th, td {
-            border: 1px solid #ddd; /* Обводка */
-            padding: 8px; /* Внутренние отступы */
-            text-align: left; /* Выравнивание текста в ячейках */
+            border: 1px solid #ddd; 
+            padding: 8px; 
+            text-align: left; 
         }
 
         th {
-            background-color: #f2f2f2; /* Фон заголовков */
-            font-weight: bold; /* Жирный шрифт для заголовков */
+            background-color: #f2f2f2; 
+            font-weight: bold; 
         }
     </style>
 </head>
 <body>
 
-<h1>Поиск по штрих-коду</h1> <!-- Изменено название -->
+<h1>Автозаполнение по штрих-коду</h1>
 
 <label for="output-columns">Выберите столбцы для вывода:</label>
 <select id="output-columns" multiple></select>
 
-<input type="text" id="manual-entry" placeholder="Введите штрих-код для автозаполнения" />
+<input type="text" id="manual-entry" placeholder="Введите штрих-код для автозаполнения" autocomplete="off"/>
 <div id="autocomplete-list" class="autocomplete-items"></div>
 
 <div id="loading">Загрузка...</div>
@@ -237,8 +237,10 @@
 
     document.getElementById('manual-entry').addEventListener('input', function () {
         populateAutocompleteList(); // Обновляем список при вводе
-        if (this.value.length >= 8) { // Предположительно, минимальная длина штрих-кода для выполнения поиска
-            searchByBarcode(this.value);
+
+        // Задать минимальную длину штрих-кода, чтобы выполнять поиск
+        if (this.value.length >= 8) {
+            searchByBarcode(this.value.trim()); // Используем trim для удаления лишних пробелов
         }
     });
 
